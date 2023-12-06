@@ -1,9 +1,10 @@
 class SightingsController < ApplicationController
     def index
         # this allows you to see all sightings in the browser - R in crud
-        sightings = Sighting.all
+        sightings = Sighting.where(date: params[:start_date]..params[:end_date])
         render json: sightings
     end
+  end
 
     def show
         # this allows you to see individual sightings in the browser - R in crud
@@ -42,6 +43,6 @@ class SightingsController < ApplicationController
 
     private # strong params - security feature that allows devs to control what params are allowed
       def sighting_params
-       params.require(:sighting).permit(:animal_id, :latitude, :longitude, :date)
+       params.require(:sighting).permit(:animal_id, :latitude, :longitude, :date, :start_date, :end_date)
     end    
 end

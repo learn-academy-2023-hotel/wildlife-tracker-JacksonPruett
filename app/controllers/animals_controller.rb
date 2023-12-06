@@ -2,14 +2,14 @@ class AnimalsController < ApplicationController
     def index
         # this allows you to see all animals in the browser - R in crud
         animals = Animal.all
-        render json: animals
+        render json: animals, include: [:sightings]
     end
 
     def show
         # this allows you to see individual animals in the browser - R in crud
         animal = Animal.find(params[:id])
         if animal.valid?
-            render json: animal
+            render json: animal, include: [:sightings]
         else
             render json: animal.errors
         end
